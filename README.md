@@ -30,4 +30,6 @@
 > - OS: Kali Linux / Windows
 > - Proxy: Burp Suite Professional / Community
 > - Browser: Firefox with FoxyProxy / Browser Burpsuite
-> 
+
+# labs 
+## Lab 1 : SQL injection vulnerability in WHERE clause allowing retrieval of hidden data [Lab-1](report-lab1/lab-1.txt)
