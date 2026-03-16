@@ -32,4 +32,4 @@
 > - Browser: Firefox with FoxyProxy / Browser Burpsuite
 
 # labs 
-## Lab 1 : SQL injection vulnerability in WHERE clause allowing retrieval of hidden data [Lab-1](report-lab1/lab-1.txt)
+## Lab 1 : SQL injection vulnerability in WHERE clause allowing retrieval of hidden data [Lab-1](SQL-Ijection-labs/blob/main/Report-lab1/lab-1.md)
