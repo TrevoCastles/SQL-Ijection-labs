@@ -16,18 +16,44 @@ SELECT * FROM products WHERE category = 'Gifts' AND released = 1
 ![link lab-1](lab-1.4.jpeg)
 ## 1.4 By appending the SQL payload ' OR 1=1 -- to the category parameter we manipulate the query logic to bypass the filter and retrieve all hidden products from the database
 
+
+## 1.5 Why did we use a single quote (') in the payload [^1].
+ 
+[^1]:This is the first step to verify if the website is vulnerable to Sql-injection
+
+The application executes a SQL query like: 
+SELECT * FROM products WHERE id='1'
+When we inject an extra single quote ('), the query becomes: WHERE id='1''
+This creates a syntax error because the database cannot determine
+which quote is the closing delimiter. As a result, the server returns
+a 500 Internal Server Error, confirming the injection point
+
+
+
+## 1.6 now, let's see why we use OR instead of AND  
+Because with OR if we have two values where one is true and the other is false, the result is true. In other words, if at least one value is true, the whole statement becomes true. This is the opposite of AND where if even a single value is false, the entire statement becomes false
+![info lab-1](lab-1.6.png) ![info lab-1](lab-1.7.png)
+
+## 1.7 and why use 1=1
+We use 1=1 because it is always true. Since the OR operator only needs one condition to be true for the entire statement to work, the code will execute successfully. For example, if I provide a username like 'admin' OR 1=1, even if the username part returns false, the 1=1 part remains true. Therefore, the whole condition becomes true, and the bypass works
+ 
+
+ use -- - as a comment operator in SQL. This means that everything following these characters is treated as a comment (decoration) and will be ignored by the database. The code becomes inactive and doesn't execute, which allows us to bypass the rest of the original query, such as the password check." 
+
+
+
 > [!TIP]
 > Helpful advice for doing things better or more easily.
  When writing an SQL injection payload, the process always begins with analyzing the original SQL query structure
 
-```bash
- It  looks like this: $\color #FF0000 catrgory='git' and released = 1 
+```diff
+ It  looks like this: - catrgory='Gifts' and released = 1 
  ```
- ```bash
- And you modify it to look like this: $\color #239b5d catrgory='git' or 1=1 -- -' and released =1 
+ ```sql
+ And you modify it to look like this: + catrgory='Gifts' or 1=1 -- -' and released =1 
  ```
 ## This results in the following malicious SQL query being executed
-```bash
+```sql
 SELECT * FROM products WHERE category = 'Gifts'
 ```
 ![link-lab-1](lab-1.5.jpeg)
